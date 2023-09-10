@@ -122,11 +122,8 @@ pub fn on_mint(
     token_id: String,
     data: String,
 ) -> MetaContractResult {
-    // let mut name = format!("Collabeat #{}", token_id);
     let mut error: Option<String> = None;
     let mut finals: Vec<FinalMetadata> = vec![];
-    // let mut no_beats = 0;
-    // let mut hash_map: HashMap<String, String> = HashMap::new();
 
     // extract out data
     if data.len() > 0 {
