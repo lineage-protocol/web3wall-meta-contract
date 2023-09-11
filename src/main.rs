@@ -225,5 +225,5 @@ fn is_profane(text: &str) -> bool {
 }
 
 fn is_nft_storage_link(link: &str) -> bool {
-    link.starts_with("https://nftstorage.link/ipfs/")
+    link == "" || link.starts_with("https://nftstorage.link/ipfs/")
 }
