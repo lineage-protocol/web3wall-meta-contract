@@ -221,7 +221,12 @@ pub fn on_mint(
  */
 fn is_profane(text: &str) -> bool {
     let profane_words = vec!["", ""];
-    profane_words.iter().any(|&word| text.contains(word))
+    profane_words.iter().any(|&word| {
+      if word != "" {
+        return text.contains(word)
+      }
+      false
+    })
 }
 
 fn is_nft_storage_link(link: &str) -> bool {
