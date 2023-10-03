@@ -131,13 +131,13 @@ pub fn on_mint(
 
         match data_bytes {
             Ok(decoded) => {
-                let param_types = vec![ParamType::String, ParamType::String];
+                let param_types = vec![ParamType::String, ParamType::String, ParamType::String];
 
                 let results = decode(&param_types, decoded);
 
                 match results {
                     Ok(result) => {
-                        if result.len() == 2 {
+                        if result.len() == 3 {
                             finals.push(FinalMetadata {
                                 public_key: contract.public_key.clone(),
                                 alias: "name".to_string(),
@@ -150,6 +150,14 @@ pub fn on_mint(
                                 public_key: contract.public_key.clone(),
                                 alias: "image".to_string(),
                                 content: result[1].clone().to_string(),
+                                loose: 1,
+                                version: "".to_string(),
+                            });
+
+                            finals.push(FinalMetadata {
+                                public_key: contract.public_key.clone(),
+                                alias: "body".to_string(),
+                                content: result[2].clone().to_string(),
                                 loose: 1,
                                 version: "".to_string(),
                             });
