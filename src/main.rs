@@ -131,13 +131,13 @@ pub fn on_mint(
 
         match data_bytes {
             Ok(decoded) => {
-                let param_types = vec![ParamType::String, ParamType::String];
+                let param_types = vec![ParamType::String, ParamType::String, ParamType::String];
 
                 let results = decode(&param_types, decoded);
 
                 match results {
                     Ok(result) => {
-                        if result.len() == 2 {
+                        if result.len() == 3 {
                             finals.push(FinalMetadata {
                                 public_key: contract.public_key.clone(),
                                 alias: "name".to_string(),
@@ -150,6 +150,14 @@ pub fn on_mint(
                                 public_key: contract.public_key.clone(),
                                 alias: "image".to_string(),
                                 content: result[1].clone().to_string(),
+                                loose: 1,
+                                version: "".to_string(),
+                            });
+
+                            finals.push(FinalMetadata {
+                                public_key: contract.public_key.clone(),
+                                alias: "body".to_string(),
+                                content: result[2].clone().to_string(),
                                 loose: 1,
                                 version: "".to_string(),
                             });
@@ -173,7 +181,7 @@ pub fn on_mint(
     finals.push(FinalMetadata {
         public_key: contract.public_key.clone(),
         alias: "description".to_string(),
-        content: "Content created by users from Token2049 Events developed by Lineage Protocol"
+        content: "A subject in w3wall decentralize forum"
             .to_string(),
         loose: 1,
         version: "".to_string(),
@@ -181,24 +189,14 @@ pub fn on_mint(
 
     // adds attributes
     let attr = vec![
-        {
-            OpenSeaAttributes {
-                trait_type: "Event".to_string(),
-                value: "Token 2049".to_string(),
-            }
-        },
-        {
-            OpenSeaAttributes {
-                trait_type: "Location".to_string(),
-                value: "Singapore".to_string(),
-            }
-        },
-        {
-            OpenSeaAttributes {
-                trait_type: "Year".to_string(),
-                value: "2023".to_string(),
-            }
-        },
+        OpenSeaAttributes {
+            trait_type: "origin".to_string(),
+            value: "w3wall".to_string()
+          },
+          OpenSeaAttributes {
+            trait_type: "type".to_string(),
+            value: "topic".to_string()
+          },
     ];
 
     finals.push(FinalMetadata {
